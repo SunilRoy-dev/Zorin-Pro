@@ -28,6 +28,10 @@ if [ "$INSTALL_SUCCESS" != "true" ]; then
             echo "Error: Failed to restore backup zorin.list. Please check manually."
         fi
     fi
+    if [ -f /etc/apt/apt.conf.d/99zorin-os-premium-user-agent ]; then
+        echo "Removing premium User-Agent configuration..."
+        sudo rm -f /etc/apt/apt.conf.d/99zorin-os-premium-user-agent
+    fi
 fi
 if [ -n "$TEMPD" ]; then
     case "$TEMPD" in
@@ -46,7 +50,7 @@ fi
 ' EXIT
 
 # Check if running on Zorin OS
-if ! grep -q "Zorin OS" /etc/os-release; then
+if [ ! -f /etc/os-release ] || ! grep -q "Zorin OS" /etc/os-release; then
 	echo "Error: This script only supports Zorin OS."
 	exit 1
 fi
@@ -105,14 +109,20 @@ fi
 
 # Automatic version detection if no flag provided
 if [ -z ${version+x} ]; then
-	if grep -q "Zorin OS" /etc/os-release; then
-		version_id=$(grep VERSION_ID /etc/os-release | cut -d '"' -f2 | cut -d '.' -f1)
-		case "$version_id" in
-			16) version="16" ;;
-			17) version="17" ;;
-			18) version="18" ;;
-			*) fail ;;
-		esac
+	if [ -f /etc/os-release ]; then
+		# shellcheck source=/dev/null
+		. /etc/os-release
+		if [[ "${NAME:-}" == *"Zorin OS"* ]] && [ -n "${VERSION_ID:-}" ]; then
+			version_id=$(echo "$VERSION_ID" | cut -d '.' -f1)
+			case "$version_id" in
+				16) version="16" ;;
+				17) version="17" ;;
+				18) version="18" ;;
+				*) fail ;;
+			esac
+		else
+			fail
+		fi
 	else
 		fail
 	fi
@@ -121,7 +131,7 @@ fi
 
 if [ "$auto_version" = "true" ]; then
 	echo ""
-	echo "ZorinOS $version automatically selected. if this is not correct please stop the script with \"CTRL+C\" and re-run the script with the correct version flag."
+	echo "ZorinOS $version automatically selected. If this is not correct, please stop the script with \"CTRL+C\" and re-run the script with the correct version flag."
 	echo ""
 	if [ "$no_confirm" = "-y" ]; then
 		sleep 1
@@ -310,7 +320,7 @@ if [ -f "$SCRIPT_DIR/raw/zorin-os.gpg" ]; then
 	echo "Found local zorin-os.gpg. Using local copy..."
 	cp "$SCRIPT_DIR/raw/zorin-os.gpg" "$TEMPD/zorin-os.gpg"
 else
-	if ! curl -L -H 'DNT: 1' -H 'Sec-GPC: 1' "${REPO_RAW_URL}/raw/zorin-os.gpg" --output "$TEMPD/zorin-os.gpg"; then
+	if ! curl -fL -H 'DNT: 1' -H 'Sec-GPC: 1' "${REPO_RAW_URL}/raw/zorin-os.gpg" --output "$TEMPD/zorin-os.gpg"; then
 		echo "Error: Failed to download Zorin OS public gpg key."
 		exit 1
 	fi
@@ -325,7 +335,7 @@ if [ "$version" = "18" ]; then
 		echo "Found local zorin-os-premium-18.gpg. Using local copy..."
 		cp "$SCRIPT_DIR/raw/zorin-os-premium-18.gpg" "$TEMPD/zorin-os-premium-18.gpg"
 	else
-		if ! curl -L -H 'DNT: 1' -H 'Sec-GPC: 1' "${REPO_RAW_URL}/raw/zorin-os-premium-18.gpg" --output "$TEMPD/zorin-os-premium-18.gpg"; then
+		if ! curl -fL -H 'DNT: 1' -H 'Sec-GPC: 1' "${REPO_RAW_URL}/raw/zorin-os-premium-18.gpg" --output "$TEMPD/zorin-os-premium-18.gpg"; then
 			echo "Error: Failed to download premium public gpg key."
 			exit 1
 		fi
@@ -339,7 +349,7 @@ else
 		echo "Found local zorin-os-premium.gpg. Using local copy..."
 		cp "$SCRIPT_DIR/raw/zorin-os-premium.gpg" "$TEMPD/zorin-os-premium.gpg"
 	else
-		if ! curl -L -H 'DNT: 1' -H 'Sec-GPC: 1' "${REPO_RAW_URL}/raw/zorin-os-premium.gpg" --output "$TEMPD/zorin-os-premium.gpg"; then
+		if ! curl -fL -H 'DNT: 1' -H 'Sec-GPC: 1' "${REPO_RAW_URL}/raw/zorin-os-premium.gpg" --output "$TEMPD/zorin-os-premium.gpg"; then
 			echo "Error: Failed to download premium public gpg key."
 			exit 1
 		fi
