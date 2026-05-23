@@ -12,9 +12,23 @@ REPO_HTML_URL="https://github.com/${REPO_OWNER}/${REPO_NAME}"
 # Determine script's directory for local/offline run
 SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 
-# Make sure the temp directory gets removed on script exit.
+# Tracking success state for safe rollback
+INSTALL_SUCCESS="false"
+
+# Make sure the temp directory gets removed on script exit, and restore backup on failure.
 trap 'exit 1' HUP INT PIPE QUIT TERM
 trap '
+if [ "$INSTALL_SUCCESS" != "true" ]; then
+    echo "Warning: Script terminated prematurely or encountered an error."
+    if [ -f /etc/apt/sources.list.d/zorin.list.bak ]; then
+        echo "Restoring original package list backup (/etc/apt/sources.list.d/zorin.list.bak)..."
+        if sudo cp -f /etc/apt/sources.list.d/zorin.list.bak /etc/apt/sources.list.d/zorin.list; then
+            echo "Backup restored successfully!"
+        else
+            echo "Error: Failed to restore backup zorin.list. Please check manually."
+        fi
+    fi
+fi
 if [ -n "$TEMPD" ]; then
     case "$TEMPD" in
         /tmp/*)
@@ -543,6 +557,9 @@ if [ -e "/etc/cron.hourly/zorin-os-census" ]; then
 else
 	echo "ZorinOS Census hourly cron task not found; skipping removal."
 fi
+
+# Mark script execution as successful to prevent rollback
+INSTALL_SUCCESS="true"
 
 echo ""
 echo ""
