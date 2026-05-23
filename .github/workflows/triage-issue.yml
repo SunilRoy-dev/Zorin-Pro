@@ -219,7 +219,7 @@ jobs:
           printf '{"issue_number":%s}\n' '${{ github.event.issue.number }}' > "$RUNNER_TEMP/triage-handoff/issue.json"
 
       - name: Upload AI triage handoff
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         with:
           name: triage-issue-context
           path: ${{ runner.temp }}/triage-handoff/issue.json
