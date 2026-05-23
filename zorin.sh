@@ -2,6 +2,16 @@
 
 set -o pipefail
 
+# GitHub Repository settings (change if using a fork)
+REPO_OWNER="SunilRoy-dev"
+REPO_NAME="Zorin-Pro"
+REPO_BRANCH="main"
+REPO_RAW_URL="https://github.com/${REPO_OWNER}/${REPO_NAME}/raw/refs/heads/${REPO_BRANCH}"
+REPO_HTML_URL="https://github.com/${REPO_OWNER}/${REPO_NAME}"
+
+# Determine script's directory for local/offline run
+SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
+
 # Make sure the temp directory gets removed on script exit.
 trap 'exit 1' HUP INT PIPE QUIT TERM
 trap '
@@ -27,36 +37,9 @@ if ! grep -q "Zorin OS" /etc/os-release; then
 	exit 1
 fi
 
-echo "███████╗ ██████╗ ██████╗ ██╗███╗   ██╗     ██████╗ ███████╗    ██████╗ ██████╗  ██████╗ "
-echo "╚══███╔╝██╔═══██╗██╔══██╗██║████╗  ██║    ██╔═══██╗██╔════╝    ██╔══██╗██╔══██╗██╔═══██╗"
-echo "  ███╔╝ ██║   ██║██████╔╝██║██╔██╗ ██║    ██║   ██║███████╗    ██████╔╝██████╔╝██║   ██║"
-echo " ███╔╝  ██║   ██║██╔══██╗██║██║╚██╗██║    ██║   ██║╚════██║    ██╔═══╝ ██╔══██╗██║   ██║"
-echo "███████╗╚██████╔╝██║  ██║██║██║ ╚████║    ╚██████╔╝███████║    ██║     ██║  ██║╚██████╔╝"
-echo "╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝     ╚═════╝ ╚══════╝    ╚═╝     ╚═╝  ╚═╝ ╚═════╝ "
-echo "|ZORIN-OS-PRO| |Script v10.0.1.1| |Overhauled & Maintained By NamelessNanasi/NanashiTheNameless| |original idea by kauancvlcnt|"
-echo ""
-echo "(Please note this tool ONLY works on ZorinOS 18 Core, ZorinOS 17 Core, and ZorinOS 16 Core)"
-echo ""
-echo "To use this script on:"
-echo "ZorinOS 16 Core use the -6 flag"
-echo "ZorinOS 17 Core use the -7 flag"
-echo "ZorinOS 18 Core use the -8 flag"
-echo ""
-echo "If a version flag is not specified the script will try to guess"
-echo ""
-echo "(add -X for a lot of extra content, Recommended)"
-echo "(add -U for unattended mode, Not recommended)"
-echo ""
-echo "THIS CODE AND THE ACCOMPANYING DOCUMENTATION WERE SIGNIFICANTLY OVERHAULED BY NamelessNanashi/NanashiTheNameless."
-echo "https://github.com/NanashiTheNameless/Zorin-OS-Pro IS THE OFFICIAL SOURCE FOR THIS TOOL."
-echo "IF YOU GOT THIS CODE ELSEWHERE KNOW THAT THE CODE SHOULD NOT BE FULLY TRUSTED."
-echo ""
-
-sleep 8
-
 function fail() {
 	echo ""
-	echo "You are not running this script correctly, read the GitHub https://github.com/NanashiTheNameless/Zorin-OS-Pro/ for more info"
+	echo "You are not running this script correctly, read the GitHub ${REPO_HTML_URL} for more info"
 	echo ""
 	exit 1
 }
@@ -75,6 +58,36 @@ while getopts "678XU" opt; do
 		*) fail ;;
 	esac
 done
+
+echo "███████╗ ██████╗ ██████╗ ██╗███╗   ██╗     ██████╗ ███████╗    ██████╗ ██████╗  ██████╗ "
+echo "╚══███╔╝██╔═══██╗██╔══██╗██║████╗  ██║    ██╔═══██╗██╔════╝    ██╔══██╗██╔══██╗██╔═══██╗"
+echo "  ███╔╝ ██║   ██║██████╔╝██║██╔██╗ ██║    ██║   ██║███████╗    ██████╔╝██████╔╝██║   ██║"
+echo " ███╔╝  ██║   ██║██╔══██╗██║██║╚██╗██║    ██║   ██║╚════██║    ██╔═══╝ ██╔══██╗██║   ██║"
+echo "███████╗╚██████╔╝██║  ██║██║██║ ╚████║    ╚██████╔╝███████║    ██║     ██║  ██║╚██████╔╝"
+echo "╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝     ╚═════╝ ╚══════╝    ╚═╝     ╚═╝  ╚═╝ ╚═════╝ "
+echo "|ZORIN-OS-PRO| |Script v10.0.1.2| |Forked & Maintained by SunilRoy-dev| |original by NamelessNanashi & kauancvlcnt|"
+echo ""
+echo "(Please note this tool ONLY works on ZorinOS 18 Core, ZorinOS 17 Core, and ZorinOS 16 Core)"
+echo ""
+echo "To use this script on:"
+echo "ZorinOS 16 Core use the -6 flag"
+echo "ZorinOS 17 Core use the -7 flag"
+echo "ZorinOS 18 Core use the -8 flag"
+echo ""
+echo "If a version flag is not specified the script will try to guess"
+echo ""
+echo "(add -X for a lot of extra content, Recommended)"
+echo "(add -U for unattended mode, Not recommended)"
+echo ""
+echo "THIS CODE AND THE ACCOMPANYING DOCUMENTATION WERE FORKED AND MAINTAINED BY SunilRoy-dev."
+echo "${REPO_HTML_URL} IS THE SOURCE FOR THIS FORK."
+echo ""
+
+if [ "$no_confirm" = "-y" ]; then
+	sleep 1
+else
+	sleep 3
+fi
 
 # Automatic version detection if no flag provided
 if [ -z ${version+x} ]; then
@@ -96,7 +109,11 @@ if [ "$auto_version" = "true" ]; then
 	echo ""
 	echo "ZorinOS $version automatically selected. if this is not correct please stop the script with \"CTRL+C\" and re-run the script with the correct version flag."
 	echo ""
-	sleep 5
+	if [ "$no_confirm" = "-y" ]; then
+		sleep 1
+	else
+		sleep 3
+	fi
 fi
 
 echo ""
@@ -249,33 +266,72 @@ function apt_update_with_retry() {
 	return 1
 }
 
+# Helper function to execute make_dummy_deb.sh
+function run_make_dummy_deb() {
+	if [ -f "$SCRIPT_DIR/make_dummy_deb.sh" ]; then
+		echo "Running local make_dummy_deb.sh..."
+		bash "$SCRIPT_DIR/make_dummy_deb.sh" "$@"
+	else
+		echo "Downloading and running make_dummy_deb.sh..."
+		bash <(curl -H 'DNT: 1' -H 'Sec-GPC: 1' -fsSL "${REPO_RAW_URL}/make_dummy_deb.sh") "$@"
+	fi
+}
+
+# Helper function to install Flatpak packages
+function install_flatpak_packages() {
+	local packages="$1"
+	if command -v flatpak >/dev/null 2>&1; then
+		for package in $packages; do
+			if ! flatpak install flathub ${no_confirm} "$package"; then
+				echo "Warning: Failed to install Flatpak package $package. Continuing..."
+			fi
+		done
+	else
+		echo "Warning: flatpak is not installed. Skipping Flatpak packages."
+	fi
+}
+
 # Manually add the public gpg keys
-if ! curl -L -H 'DNT: 1' -H 'Sec-GPC: 1' https://github.com/NanashiTheNameless/Zorin-OS-Pro/raw/refs/heads/main/raw/zorin-os.gpg --output "$TEMPD/zorin-os.gpg"; then
-	echo "Error: Failed to download Zorin OS public gpg key."
-	exit 1
+if [ -f "$SCRIPT_DIR/raw/zorin-os.gpg" ]; then
+	echo "Found local zorin-os.gpg. Using local copy..."
+	cp "$SCRIPT_DIR/raw/zorin-os.gpg" "$TEMPD/zorin-os.gpg"
+else
+	if ! curl -L -H 'DNT: 1' -H 'Sec-GPC: 1' "${REPO_RAW_URL}/raw/zorin-os.gpg" --output "$TEMPD/zorin-os.gpg"; then
+		echo "Error: Failed to download Zorin OS public gpg key."
+		exit 1
+	fi
 fi
 if [ ! -s "$TEMPD/zorin-os.gpg" ]; then
-	echo "Error: Downloaded Zorin OS public gpg key file is empty or missing."
+	echo "Error: Zorin OS public gpg key file is empty or missing."
 	exit 1
 fi
 
 if [ "$version" = "18" ]; then
-	if ! curl -L -H 'DNT: 1' -H 'Sec-GPC: 1' https://github.com/NanashiTheNameless/Zorin-OS-Pro/raw/refs/heads/main/raw/zorin-os-premium-18.gpg --output "$TEMPD/zorin-os-premium-18.gpg"; then
-		echo "Error: Failed to download premium public gpg key."
-		exit 1
+	if [ -f "$SCRIPT_DIR/raw/zorin-os-premium-18.gpg" ]; then
+		echo "Found local zorin-os-premium-18.gpg. Using local copy..."
+		cp "$SCRIPT_DIR/raw/zorin-os-premium-18.gpg" "$TEMPD/zorin-os-premium-18.gpg"
+	else
+		if ! curl -L -H 'DNT: 1' -H 'Sec-GPC: 1' "${REPO_RAW_URL}/raw/zorin-os-premium-18.gpg" --output "$TEMPD/zorin-os-premium-18.gpg"; then
+			echo "Error: Failed to download premium public gpg key."
+			exit 1
+		fi
 	fi
 	if [ ! -s "$TEMPD/zorin-os-premium-18.gpg" ]; then
-		echo "Error: Downloaded premium public gpg key file is empty or missing."
+		echo "Error: Premium public gpg key file is empty or missing."
 		exit 1
 	fi
-
 else
-	if ! curl -L -H 'DNT: 1' -H 'Sec-GPC: 1' https://github.com/NanashiTheNameless/Zorin-OS-Pro/raw/refs/heads/main/raw/zorin-os-premium.gpg --output "$TEMPD/zorin-os-premium.gpg"; then
-		echo "Error: Failed to download premium public gpg key."
-		exit 1
+	if [ -f "$SCRIPT_DIR/raw/zorin-os-premium.gpg" ]; then
+		echo "Found local zorin-os-premium.gpg. Using local copy..."
+		cp "$SCRIPT_DIR/raw/zorin-os-premium.gpg" "$TEMPD/zorin-os-premium.gpg"
+	else
+		if ! curl -L -H 'DNT: 1' -H 'Sec-GPC: 1' "${REPO_RAW_URL}/raw/zorin-os-premium.gpg" --output "$TEMPD/zorin-os-premium.gpg"; then
+			echo "Error: Failed to download premium public gpg key."
+			exit 1
+		fi
 	fi
 	if [ ! -s "$TEMPD/zorin-os-premium.gpg" ]; then
-		echo "Error: Downloaded premium public gpg key file is empty or missing."
+		echo "Error: Premium public gpg key file is empty or missing."
 		exit 1
 	fi
 fi
@@ -358,11 +414,11 @@ if dpkg -s "zorin-os-premium-keyring" >/dev/null 2>&1; then
 	echo ""
 else
 	if [ "$version" = "18" ]; then
-		if ! bash <(curl -H 'DNT: 1' -H 'Sec-GPC: 1' -fsSL https://github.com/NanashiTheNameless/Zorin-OS-Pro/raw/refs/heads/main/make_dummy_deb.sh) -w "$TEMPD/Dummy/" -n zorin-os-premium-keyring -v 1.1 -o "$TEMPD/zorin-os-premium-keyring.deb"; then
+		if ! run_make_dummy_deb -w "$TEMPD/Dummy/" -n zorin-os-premium-keyring -v 1.1 -o "$TEMPD/zorin-os-premium-keyring.deb"; then
 			echo "Warning: Failed to create dummy deb for zorin-os-premium-keyring (1.1). Continuing anyway..."
 		fi
 	else
-		if ! bash <(curl -H 'DNT: 1' -H 'Sec-GPC: 1' -fsSL https://github.com/NanashiTheNameless/Zorin-OS-Pro/raw/refs/heads/main/make_dummy_deb.sh) -w "$TEMPD/Dummy/" -n zorin-os-premium-keyring -v 1.0 -o "$TEMPD/zorin-os-premium-keyring.deb"; then
+		if ! run_make_dummy_deb -w "$TEMPD/Dummy/" -n zorin-os-premium-keyring -v 1.0 -o "$TEMPD/zorin-os-premium-keyring.deb"; then
 			echo "Warning: Failed to create dummy deb for zorin-os-premium-keyring (1.0). Continuing anyway..."
 		fi
 	fi
@@ -373,7 +429,7 @@ if dpkg -s "zorin-os-keyring" >/dev/null 2>&1; then
 	echo "zorin-os-keyring is already installed, skipping dummy deb creation/installation."
 	echo ""
 else
-	if ! bash <(curl -H 'DNT: 1' -H 'Sec-GPC: 1' -fsSL https://github.com/NanashiTheNameless/Zorin-OS-Pro/raw/refs/heads/main/make_dummy_deb.sh) -w "$TEMPD/Dummy/" -n zorin-os-keyring -v 1.1 -o "$TEMPD/zorin-os-keyring.deb"; then
+	if ! run_make_dummy_deb -w "$TEMPD/Dummy/" -n zorin-os-keyring -v 1.1 -o "$TEMPD/zorin-os-keyring.deb"; then
 		echo "Warning: Failed to create dummy deb for zorin-os-keyring. Continuing anyway..."
 	fi
 fi
@@ -417,11 +473,7 @@ if [ "$version" = "16" ]; then
 		fi
 		# Install flatpak packages individually to allow user to choose which to install
 		flatpak_packages_16="org.nickvision.money com.usebottles.bottles io.github.seadve.Kooha com.rafaelmardojai.Blanket nl.hjdskes.gcolor3 org.ardour.Ardour org.darktable.Darktable org.audacityteam.Audacity org.kde.krita org.gnome.BreakTimer org.gabmus.gfeeds fr.handbrake.ghb com.github.johnfactotum.Foliate org.inkscape.Inkscape com.obsproject.Studio org.mixxx.Mixxx io.github.OpenToonz org.pitivi.Pitivi org.videolan.VLC com.github.xournalpp.xournalpp net.scribus.Scribus org.blender.Blender"
-		for package in $flatpak_packages_16; do
-			if ! flatpak install flathub ${no_confirm} "$package"; then
-				echo "Warning: Failed to install Flatpak package $package. Continuing with remaining packages..."
-			fi
-		done
+		install_flatpak_packages "$flatpak_packages_16"
 	else
 		if ! sudo apt-get --no-install-recommends install ${no_confirm} zorin-appearance zorin-appearance-layouts-shell-core zorin-appearance-layouts-shell-premium zorin-appearance-layouts-support zorin-auto-theme zorin-icon-themes zorin-os-artwork zorin-os-keyring zorin-os-premium-keyring zorin-os-pro zorin-os-pro-wallpapers zorin-os-pro-wallpapers-16 zorin-os-wallpapers zorin-os-wallpapers-16; then
 			echo "Error: Failed to install APT packages. (16)"
@@ -437,11 +489,7 @@ elif [ "$version" = "17" ]; then
 		fi
 		# Install flatpak packages individually to allow user to choose which to install
 		flatpak_packages_17="org.nickvision.money com.usebottles.bottles io.github.seadve.Kooha com.rafaelmardojai.Blanket nl.hjdskes.gcolor3 org.ardour.Ardour org.darktable.Darktable org.audacityteam.Audacity org.kde.krita org.gnome.BreakTimer org.gabmus.gfeeds fr.handbrake.ghb com.github.johnfactotum.Foliate org.inkscape.Inkscape com.obsproject.Studio org.mixxx.Mixxx io.github.OpenToonz org.kde.kdenlive org.videolan.VLC com.github.xournalpp.xournalpp net.scribus.Scribus org.blender.Blender"
-		for package in $flatpak_packages_17; do
-			if ! flatpak install flathub ${no_confirm} "$package"; then
-				echo "Warning: Failed to install Flatpak package $package. Continuing with remaining packages..."
-			fi
-		done
+		install_flatpak_packages "$flatpak_packages_17"
 	else
 		if ! sudo apt-get --no-install-recommends install ${no_confirm} zorin-appearance zorin-appearance-layouts-shell-core zorin-appearance-layouts-shell-premium zorin-appearance-layouts-support zorin-auto-theme zorin-icon-themes zorin-os-artwork zorin-os-keyring zorin-os-premium-keyring zorin-os-pro zorin-os-pro-wallpapers zorin-os-pro-wallpapers-17 zorin-os-wallpapers zorin-os-wallpapers-17; then
 			echo "Error: Failed to install packages. (17)"
@@ -457,11 +505,7 @@ elif [ "$version" = "18" ]; then
 		fi
 		# Install flatpak packages individually to allow user to choose which to install
 		flatpak_packages_18="org.nickvision.money com.usebottles.bottles io.github.seadve.Kooha com.rafaelmardojai.Blanket nl.hjdskes.gcolor3 org.ardour.Ardour org.darktable.Darktable org.audacityteam.Audacity org.kde.krita org.gnome.BreakTimer org.gabmus.gfeeds fr.handbrake.ghb com.github.johnfactotum.Foliate org.inkscape.Inkscape com.obsproject.Studio org.mixxx.Mixxx io.github.OpenToonz org.kde.kdenlive org.videolan.VLC com.github.xournalpp.xournalpp net.scribus.Scribus org.blender.Blender"
-		for package in $flatpak_packages_18; do
-			if ! flatpak install flathub ${no_confirm} "$package"; then
-				echo "Warning: Failed to install Flatpak package $package. Continuing with remaining packages..."
-			fi
-		done
+		install_flatpak_packages "$flatpak_packages_18"
 	else
 		if ! sudo apt-get --no-install-recommends install ${no_confirm} zorin-appearance zorin-appearance-layouts-shell-core zorin-appearance-layouts-shell-premium zorin-appearance-layouts-support zorin-auto-theme zorin-icon-themes zorin-os-artwork zorin-os-keyring zorin-os-premium-keyring zorin-os-pro zorin-os-pro-wallpapers zorin-os-wallpapers zorin-os-wallpapers-18; then
 			echo "Error: Failed to install packages. (18)"
@@ -503,9 +547,9 @@ fi
 echo ""
 echo ""
 echo "All done!"
-echo "If you have any questions or comments please see https://github.com/NanashiTheNameless/Zorin-OS-Pro/discussions/29 for more information on how to deal with them."
+echo "If you have any questions or comments please see the discussions page at ${REPO_HTML_URL}/discussions"
 echo ""
-echo "If you are using this tool and have issues please file a bug report about said issues on GitHub https://github.com/NanashiTheNameless/Zorin-OS-Pro/issues/new?template=bug_report.yml"
+echo "If you are using this tool and have issues please file a bug report at ${REPO_HTML_URL}/issues"
 echo ""
 echo 'Please Reboot your Zorin Instance... You can do so with "sudo reboot" or by pressing "reboot" in the Zorin menu in the bottom left.'
 echo ""

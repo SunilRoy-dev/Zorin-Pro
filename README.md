@@ -1,10 +1,10 @@
-# Zorin-OS-Pro [![Shellcheck](https://img.shields.io/github/actions/workflow/status/NanashiTheNameless/Zorin-OS-Pro/shellcheck.yml?branch=main&label=Shellcheck&style=for-the-badge&labelColor=0d1117)](https://github.com/NanashiTheNameless/Zorin-OS-Pro/actions/workflows/shellcheck.yml)
+# Zorin-OS-Pro [![Shellcheck](https://img.shields.io/github/actions/workflow/status/SunilRoy-dev/Zorin-Pro/shellcheck.yml?branch=main&label=Shellcheck&style=for-the-badge&labelColor=0d1117)](https://github.com/SunilRoy-dev/Zorin-Pro/actions/workflows/shellcheck.yml)
 
 ## This script turns your Zorin OS CORE instance into a Zorin OS PRO instance
 
-## [If you like the OS please consider supporting the original devs by buying a genuine copy!](<https://zorin.com/os/why-pay/>)
+## [If you like the OS please consider supporting the original devs by buying a genuine copy!](https://zorin.com/os/why-pay/)
 
-### PLEASE NOTE: You will not receive support from <https://zorin.com/> if you don't like that you can buy a copy
+### PLEASE NOTE: You will not receive support from https://zorin.com/ if you don't like that you can buy a copy
 
 ## Purpose statement
 
@@ -14,11 +14,11 @@ I am of the opinion ZorinOS should charge for support rather than charging for t
 $48USD (ZorinOS Pro price as of writing) is also too expensive for the services they provide. \
 **THIS IS NOT PIRACY!** \
 I am not modifying/stealing any of their code nor am I providing any of their IP. \
-See [raw/NOTICE.txt](</raw/NOTICE.txt>) for more info.
+See [raw/NOTICE.txt](raw/NOTICE.txt) for more info.
 
 ## Stargazers over time
 
-[![Stargazers over time](<https://starchart.cc/NanashiTheNameless/Zorin-OS-Pro.svg?variant=adaptive>)](<https://starchart.cc/NanashiTheNameless/Zorin-OS-Pro>)
+[![Stargazers over time](https://starchart.cc/SunilRoy-dev/Zorin-Pro.svg?variant=adaptive)](https://starchart.cc/SunilRoy-dev/Zorin-Pro)
 
 ## Usage
 
@@ -29,27 +29,27 @@ Copy the command below, paste in your terminal, enter your password when prompte
 ## For The Minimum Additional Content
 
 ```sh
-bash <(curl -H 'DNT: 1' -H 'Sec-GPC: 1' -fsSL https://github.com/NanashiTheNameless/Zorin-OS-Pro/raw/refs/heads/main/zorin.sh) -U
+bash <(curl -H 'DNT: 1' -H 'Sec-GPC: 1' -fsSL https://github.com/SunilRoy-dev/Zorin-Pro/raw/refs/heads/main/zorin.sh) -U
 ```
 
 ## For A Lot of Extra Content (Recommended)
 
 ```sh
-bash <(curl -H 'DNT: 1' -H 'Sec-GPC: 1' -fsSL https://github.com/NanashiTheNameless/Zorin-OS-Pro/raw/refs/heads/main/zorin.sh) -U -X
+bash <(curl -H 'DNT: 1' -H 'Sec-GPC: 1' -fsSL https://github.com/SunilRoy-dev/Zorin-Pro/raw/refs/heads/main/zorin.sh) -U -X
 ```
 
 ## Examples
 
-(example images are taken of a Virtualbox image made from a core iso as it is easier to perform debugging of a took like this in a VM)
+(example images are taken of a Virtualbox image made from a core iso as it is easier to perform debugging of a tool like this in a VM)
 
-![Zorin OS Pro Appearance Menu](<https://github.com/user-attachments/assets/22945121-0e8c-44d4-ae81-dae49b62b662>)
+![Zorin OS Pro Appearance Menu](https://github.com/user-attachments/assets/22945121-0e8c-44d4-ae81-dae49b62b662)
 
-![Zorin OS Pro Wallpaper Menu](<https://github.com/user-attachments/assets/18c1b89e-edf0-4c3b-bc8f-6784dff9f72e>)
+![Zorin OS Pro Wallpaper Menu](https://github.com/user-attachments/assets/18c1b89e-edf0-4c3b-bc8f-6784dff9f72e)
 
-![Zorin OS Pro Settings Menu](<https://github.com/user-attachments/assets/ab4e185f-9480-4a05-9fac-94d79f08dd82>)
+![Zorin OS Pro Settings Menu](https://github.com/user-attachments/assets/ab4e185f-9480-4a05-9fac-94d79f08dd82)
 
 ## Credits
 
-[All Major Contributors](<https://github.com/NanashiTheNameless/Zorin-OS-Pro/blob/main/CONTRIBUTORS.md>)
+[All Major Contributors](https://github.com/SunilRoy-dev/Zorin-Pro/blob/main/CONTRIBUTORS.md)
 
-[All Other Contributors](<https://github.com/NanashiTheNameless/Zorin-OS-Pro/graphs/contributors>)
+[All Other Contributors](https://github.com/SunilRoy-dev/Zorin-Pro/graphs/contributors)
